@@ -30,22 +30,19 @@ const getToken = async (code: string) => {
         throw Error("clientId doesnt exist");
     }
     try {
-        const response = await httpCommon.post("api/token", {
+        const response = await httpCommon.post("https://accounts.spotify.com/api/token", {
             client_id,
             grant_type: 'authorization_code',
             code,
             redirect_uri: redirectUri,
             code_verifier: codeVerifier,
-        },
-            {
-                headers:
-                    { 'Content-Type': 'application/x-www-form-urlencoded' }
-            }
+        }
         );
         const data: IGetToken = response.data;
         console.log(data);
         if (data.access_token) {
-            localStorage.setItem('access_token', data.access_token);       
+            localStorage.setItem('access_token', data.access_token);
+            localStorage.setItem('refresh_token', data.refresh_token);
         }
     } catch(e) {
         console.log(e);
@@ -53,9 +50,33 @@ const getToken = async (code: string) => {
     }
 }
 
+const refreshToken = async () => {
+    const refreshToken: string | null = localStorage.getItem('refresh_token');
+    const client_id: string | null = window.localStorage.getItem("client_id");
+    if (refreshToken) {
+        try {
+            const response = await httpCommon.post("https://accounts.spotify.com/api/token", {
+                client_id,
+                grant_type: 'refresh_token',
+                refresh_token: refreshToken
+            }
+            );
+            const data: IGetToken = response.data;
+            if (data.access_token) {
+                localStorage.setItem('access_token', data.access_token);
+                localStorage.setItem('refresh_token', data.refresh_token);
+            }
+        } catch(e) {
+            console.log(e);
+            throw new Error("error");
+        }
+    }
+}
+
 const AuthService = {
     authorize,
-    getToken
+    getToken,
+    refreshToken
 }
 
 export default AuthService;

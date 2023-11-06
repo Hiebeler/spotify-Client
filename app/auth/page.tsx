@@ -23,7 +23,7 @@ const Auth = () => {
         </div>
       </div>
       <div>
-        <button onClick={submit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+        <button onClick={submit} className="bg-primary hover:scale-110 text-white font-bold py-2 px-4 rounded">Submit</button>
       </div>
     </div>
   );

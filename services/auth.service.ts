@@ -1,6 +1,6 @@
 import httpCommon from "@/http-common";
 import CodeChallenge from "@/lib/codeChallenge"
-const scope = 'user-read-private user-read-email user-top-read';
+const scope = 'user-read-private user-read-email user-top-read user-read-playback-sate';
 const redirectUri = 'http://localhost:3030/auth/callback';
 const authUrl = new URL("https://accounts.spotify.com/authorize")
 

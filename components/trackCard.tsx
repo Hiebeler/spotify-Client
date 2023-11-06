@@ -12,17 +12,19 @@ const TrackCard = (props: TrackCardProps) => {
 
   return (
     <div
-      className="relative w-34 md:w-48 h-full rounded-lg shadow dark:bg-[#1c1c1b]"
+      className="relative w-36 md:w-48 h-full rounded-lg shadow dark:bg-[#1c1c1b]"
       onMouseEnter={() => setMouseOver(true)}
       onMouseLeave={() => setMouseOver(false)}
     >
       <div className="relative flex justify-center">
-          <a
-            className={`absolute z-50 bottom-0 duration-500 cursor-pointer ${mouseOver ? "opacity-100": "opacity-0"}`}
-            href={props.track.preview_url!}
-          >
-            <PlayCircle size={64} color="#1DB954" weight="fill" />
-          </a>
+        <a
+          className={`absolute z-50 bottom-0 duration-500 cursor-pointer ${
+            mouseOver ? "opacity-100" : "opacity-0"
+          }`}
+          href={props.track.preview_url!}
+        >
+          <PlayCircle size={64} color="#1DB954" weight="fill" />
+        </a>
         <Image
           className="rounded-t-lg !relative h-auto object-cover"
           src={
@@ -46,9 +48,9 @@ const TrackCard = (props: TrackCardProps) => {
                   key={index}
                   className="mb-3 font-normal text-gray-700 dark:text-gray-400"
                 >
-                  {artist.name}{index !== props.track.artists.length - 1 ? "," : <></>}
+                  {artist.name}
+                  {index !== props.track.artists.length - 1 ? "," : <></>}
                 </p>
-                
               </>
             );
           })}

@@ -1,6 +1,7 @@
 "use client";
 import ArtistCard from "@/components/artistCard";
 import TrackCard from "@/components/trackCard";
+import useProfile from "@/hooks/useProfile";
 import ProfileService from "@/services/profile.service";
 import Image from "next/image";
 import { useState } from "react";
@@ -10,13 +11,7 @@ const Profile = () => {
   const [monthTracks, setMonthTracks] = useState<boolean>(false);
   const [monthArtists, setMonthArtists] = useState<boolean>(false);
 
-  const { data: profile } = useQuery<UserProfile>({
-    queryKey: "userProfile",
-    queryFn: ProfileService.getProfile,
-    onSuccess(data) {
-      console.log(data);
-    },
-  });
+  const { data: profile } = useProfile();
 
   const { data: topTracks } = useQuery({
     queryKey: ["myTopTracks", monthTracks],
@@ -37,7 +32,7 @@ const Profile = () => {
   return (
     <div className="container mt-20">
       <div className="mt-8 flex flex-row space-x-5">
-        <div className="relative w-48 h-48 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+        <div className="relative w-32 h-32 xl:w-48 xl:h-48 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
           {profile?.images.length !== 0 && profile?.images[0] ? (
             <Image
               src={profile?.images[profile?.images.length - 1].url}

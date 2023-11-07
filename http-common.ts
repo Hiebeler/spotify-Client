@@ -38,9 +38,11 @@ axiosClient.interceptors.response.use(
                 originalConfig._retry = true;
 
                 try {
-                    AuthService.refreshToken();
-
-                    return axiosClient(originalConfig);
+                    const worked: boolean = await AuthService.refreshToken();
+                    if (worked) {
+                        return axiosClient(originalConfig);
+                    }
+                    throw Error;
                 } catch (_error) {
                     /* toast.error("Session time out. Please login again.", {
                        id: "sessionTimeOut",

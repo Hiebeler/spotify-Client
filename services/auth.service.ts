@@ -1,6 +1,6 @@
 import httpCommon from "@/http-common";
 import CodeChallenge from "@/lib/codeChallenge"
-const scope = 'user-read-private user-read-email user-top-read user-read-playback-sate';
+const scope = 'user-read-private user-read-email user-top-read';
 const redirectUri = 'http://localhost:3030/auth/callback';
 const authUrl = new URL("https://accounts.spotify.com/authorize")
 
@@ -50,7 +50,7 @@ const getToken = async (code: string) => {
     }
 }
 
-const refreshToken = async () => {
+const refreshToken = async (): Promise<boolean> => {
     const refreshToken: string | null = localStorage.getItem('refresh_token');
     const client_id: string | null = window.localStorage.getItem("client_id");
     if (refreshToken) {
@@ -62,15 +62,18 @@ const refreshToken = async () => {
             }
             );
             const data: IGetToken = response.data;
-            if (data.access_token) {
+            if (data.access_token && data.refresh_token) {
                 localStorage.setItem('access_token', data.access_token);
                 localStorage.setItem('refresh_token', data.refresh_token);
+                return true;
             }
+            return false;
         } catch(e) {
             console.log(e);
-            throw new Error("error");
+            return false;
         }
     }
+    return false;
 }
 
 const AuthService = {

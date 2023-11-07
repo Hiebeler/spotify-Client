@@ -1,3 +1,4 @@
+import useProfile from "@/hooks/useProfile";
 import Link from "next/link";
 import { ReactNode } from "react";
 

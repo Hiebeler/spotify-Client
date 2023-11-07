@@ -2,6 +2,8 @@
 import ArtistCard from "@/components/artistCard";
 import TrackCard from "@/components/trackCard";
 import useProfile from "@/hooks/useProfile";
+import useTopArtists from "@/hooks/useTopArtists";
+import useTopTracks from "@/hooks/useTopTracks";
 import ProfileService from "@/services/profile.service";
 import Image from "next/image";
 import { useState } from "react";
@@ -13,21 +15,9 @@ const Profile = () => {
 
   const { data: profile } = useProfile();
 
-  const { data: topTracks } = useQuery({
-    queryKey: ["myTopTracks", monthTracks],
-    queryFn: () => ProfileService.getTopTracks(monthTracks),
-    onSuccess(data) {
-      console.log(data);
-    },
-  });
+  const { data: topTracks } = useTopTracks(monthTracks)
 
-  const { data: topArtists } = useQuery({
-    queryKey: ["myTopArtists", monthArtists],
-    queryFn: () => ProfileService.getTopArtists(monthArtists),
-    onSuccess(data) {
-      console.log(data);
-    },
-  });
+  const { data: topArtists } = useTopArtists(monthArtists);
 
   return (
     <div className="container mt-20">

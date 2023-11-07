@@ -1,4 +1,3 @@
-import authHeader from "@/authheader"
 import httpCommon from "@/http-common"
 
 const getProfile = async (): Promise<UserProfile> => {

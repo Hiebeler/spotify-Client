@@ -18,13 +18,12 @@ const config: Config = {
         "primary": "#1DB954"
       },
       container: {
-        center: true,
         padding: {
           DEFAULT: '1rem',
           sm: '2rem',
-          lg: '6rem',
-          xl: '8rem',
-          '2xl': '10rem',
+          lg: '3rem',
+          xl: '4rem',
+          '2xl': '5rem',
         }
       }
     }

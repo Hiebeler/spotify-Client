@@ -3,9 +3,11 @@ import SidebarElement from "./sidebarElement";
 import Image from "next/image";
 import artist from "../../public/icons/artist.png";
 import { useState } from "react";
+import useProfile from "@/hooks/useProfile";
 
 const Sidebar = () => {
   const [open, setOpen] = useState<boolean>(true);
+  const { data: profile } = useProfile();
 
   return (
     <div className="bg-[#212121] h-full pt-3">
